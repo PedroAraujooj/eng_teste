@@ -31,7 +31,7 @@ public class LoginTest extends BaseTest {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
             File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            Path destino = Path.of("target", "screenshots", "home-bottom.png");
+            Path destino = Path.of("resources", "screenshots", "home-bottom.png");
             Files.createDirectories(destino.getParent());
             Files.copy(src.toPath(), destino, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Screenshot salvo em: " + destino.toAbsolutePath());
