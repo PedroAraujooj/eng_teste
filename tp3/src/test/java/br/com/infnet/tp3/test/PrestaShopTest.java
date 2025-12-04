@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PrestaShopTest extends BaseTest {
@@ -15,10 +16,13 @@ public class PrestaShopTest extends BaseTest {
         PrestaShopPage prestaShopPage = new PrestaShopPage(driver).abrir();
         List<WebElement> prods = prestaShopPage.getProdutos();
         prods.get(0).click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         prestaShopPage.adicionarCarrinho();
         String tituloModal = prestaShopPage.getTituloModal();
         assertTrue(tituloModal.contains("Product successfully added to your shopping cart"));
+        Thread.sleep(3000);
+        prestaShopPage.fecharModal();
+        assertEquals(1, prestaShopPage.getQuantidadeCarrinho());
 
     }
 

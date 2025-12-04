@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PrestaShopPage extends BasePage {
     private static final String URL = "https://demo.prestashop.com/#/en/front";
@@ -23,6 +24,8 @@ public class PrestaShopPage extends BasePage {
     private final By formSubmit = By.name("submitMessage");
     private final By adicionarCarrinhoBtn = By.cssSelector(".btn.btn-primary.add-to-cart");
     private final By alertaSucesso = By.cssSelector(".alert-success");
+    private final By closeBnt = By.cssSelector("#blockcart-modal button.close");
+    private final By carrinhoCount = By.cssSelector(".cart-products-count");
 
     public PrestaShopPage(WebDriver driver) {
         super(driver);
@@ -54,6 +57,16 @@ public class PrestaShopPage extends BasePage {
 
     public String getTituloModal() {
         return $(tituloModal).getText();
+    }
+
+    public void fecharModal() {
+        Objects.requireNonNull(wait.until(ExpectedConditions.elementToBeClickable(closeBnt))).click();
+    }
+
+    public Integer getQuantidadeCarrinho(){
+        String stringCount = $(carrinhoCount).getText();
+        return Integer.parseInt(stringCount.replace("(", "")
+                .replace(")", ""));
     }
 
     public PrestaShopPage preencherForm(String select, String mail, String msg) throws InterruptedException {
